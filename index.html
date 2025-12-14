@@ -1,229 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Skin Crates 🔥</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0d1117;
-  --card: rgba(22,27,34,0.85);
-  --text: #e6edf3;
-  --accent: #1f6feb;
-  --hover: #238636;
-  --radius: 10px;
-  --red: #ff3030;
-  --muted: #8b949e;
-}
-* { box-sizing: border-box; margin:0; padding:0; }
-body {
-  font-family: 'Montserrat', sans-serif;
-  color: var(--text);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
-  padding: 3.6rem 2rem 2rem;
-  position: relative;
-  overflow-x: hidden;
-  z-index: 1;
-  background-color: var(--bg);
-}
-.bg-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-}
-.top-left {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  background-color: var(--card);
-  padding: 0.5rem 1rem 0.5rem 0.5rem;
-  border-radius: var(--radius);
-  border: 2px solid var(--accent);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 600;
-  z-index: 50;
-  backdrop-filter: blur(10px);
-}
-.top-left:hover {
-  transform: scale(1.05);
-  border-color: var(--hover);
-  color: var(--hover);
-}
-.avatar-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--accent);
-  flex-shrink: 0;
-}
-h1 {
-  text-align: center;
-  font-size: 2.8rem;
-  margin-bottom: 2rem;
-  letter-spacing: 1px;
-  font-weight: 900;
-  background: linear-gradient(90deg,
-    #ff3b3b, #ff9a3b, #ffd93b, #9aff60, #3bffea, #6b6bff, #ff3bdf, #ff3b3b);
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: rainbow 5s linear infinite, shine 3s ease-in-out infinite;
-  text-shadow: 0 0 6px rgba(255,255,255,0.03), 0 2px 18px rgba(0,0,0,0.6);
-  z-index: 10;
-}
-@keyframes rainbow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-@keyframes shine { 0%{filter:brightness(1)} 50%{filter:brightness(1.08)} 100%{filter:brightness(1)} }
-.box-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  width: 100%;
-  max-width: 700px;
-  margin-bottom: 2rem;
-  z-index: 10;
-}
-.box {
-  background-color: var(--card);
-  border: 2px solid transparent;
-  border-radius: var(--radius);
-  padding: 1rem;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  user-select: none;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  flex-direction: column;
-  min-height: 160px;
-  position: relative;
-  backdrop-filter: blur(12px);
-}
-.box:hover { border-color: var(--accent); transform: translateY(-3px); }
-.box.active { border-color: rgba(255,80,80,0.95); background-color: rgba(27,17,18,0.9); box-shadow: 0 8px 30px rgba(255,60,60,0.12),0 0 18px rgba(255,80,80,0.08); transform: translateY(-4px); }
-.box img { max-width: 100%; display:block; object-fit: cover; }
-.box[data-name="strawberry"] img,
-.box[data-name="burguro"] img,
-.box[data-name="ketchuru"] img,
-.box[data-name="garama"] img { width: 100px; height: 100px; }
-.box[data-name="ketupat"] img,
-.box[data-name="los67"] img { width: 80px; height: auto; }
-.btn { background-color: var(--accent); color: #fff; border:none; border-radius: var(--radius); padding:1rem 2rem; font-size:1.1rem; cursor:pointer; transition: all 0.25s ease; box-shadow:0 8px 30px rgba(255,60,60,0.12),0 0 18px rgba(255,80,80,0.12); z-index:10; text-decoration:none; }
-.btn:hover { background-color:#ff4b4b; transform: translateY(-4px); }
-.mins-row { display:flex; align-items:center; gap:8px; margin-top:8px; color:#cbd5e1; font-size:14px; font-weight:900; }
-.mins-dot { width:8px;height:8px;border-radius:50%;background: linear-gradient(180deg,#ff8b8b,#ff3b3b); box-shadow:0 0 10px rgba(255,60,60,0.6);}
-.mins-text { font-weight:900;color:var(--text); min-width:44px; text-align:left;}
-.mins-text.countdown { font-family: monospace; color:#ffdede; }
-.now-badge { background: linear-gradient(90deg,#fff 0%, #ffdede 100%); color:#181818; padding:4px 8px; border-radius:999px; font-weight:800; font-size:12px;}
-.join-note { margin-top: 8px; color: var(--muted); font-size:0.95rem; font-weight:600; text-align:center; z-index:10; }
-footer { margin-top:3rem; text-align:center; font-size:0.9rem; color:var(--muted); z-index:10; position: relative; }
-@media (max-width:520px){ .box { min-height:140px } .avatar-img { width:48px;height:48px } body { padding-top:3.2rem } h1 { font-size:24px } }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niko's Market</title>
+  <style>
+    * { box-sizing: border-box; font-family: Inter, system-ui, -apple-system, sans-serif; }
+    body { margin: 0; background: #0b0d12; color: #e7e9ee; }
+    header { padding: 16px 24px; border-bottom: 1px solid #1f2430; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 18px; margin: 0; }
+    header a { color: #9aa1b2; text-decoration: none; font-size: 14px; }
+
+    main { padding: 24px; max-width: 1100px; margin: auto; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .card { background: #121622; border: 1px solid #1f2430; border-radius: 16px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .card h3 { margin: 0 0 8px; font-size: 16px; }
+    .muted { color: #9aa1b2; font-size: 13px; }
+    .price { font-weight: 700; margin-top: 6px; }
+    .buy { margin-top: 12px; width: 100%; padding: 10px; border-radius: 12px; border: 0; background: #5b7cfa; color: #0b0d12; font-weight: 700; cursor: pointer; }
+
+    .modal { position: fixed; inset: 0; background: rgba(0,0,0,.65); display: none; align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-box { width: 100%; max-width: 480px; background: #121622; border: 1px solid #1f2430; border-radius: 18px; padding: 20px; }
+    .field { margin: 10px 0; }
+    .field label { display: block; margin-bottom: 4px; }
+    .field input { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #1f2430; background: #0b0d12; color: #e7e9ee; }
+
+    footer { text-align: center; padding: 24px; color: #9aa1b2; font-size: 13px; }
+  </style>
 </head>
 <body>
-<video class="bg-video" autoplay muted loop playsinline>
-  <source src="https://github.com/ZamasXmodder/DragonHalloween/raw/main/Drag%C3%B3n_de_Halloween_con_Fuego_Animado.mp4" type="video/mp4">
-</video>
-</a>
-<h1>🔥 Skin Crates</h1>
-<div class="box-container" id="boxContainer">
-  <div class="box" data-name="strawberry" data-server="Strawberry Elephant (if you are lucky you get one)">
-    <img src="https://i.ibb.co/ZbYmqBt/Skin-Case-1.webp">
-    Skin Crate 1
-    <div class="mins-row"><span class="mins-dot"></span><span class="mins-text">--</span></div>
+  <header>
+    <h1>Niko's Market</h1>
+    <a href="reviews.html">Reviews</a>
+  </header>
+
+  <main>
+    <h2>Listings</h2>
+    <div class="grid" id="listings"></div>
+  </main>
+
+  <footer>Robux-only · Manual delivery</footer>
+
+  <!-- BUY MODAL -->
+  <div class="modal" id="buyModal">
+    <div class="modal-box">
+      <h2 id="buyTitle"></h2>
+      <p class="muted" id="buyDesc"></p>
+
+      <div class="field">
+        <label class="muted">Roblox Username</label>
+        <input id="rbxUser" />
+      </div>
+
+      <div class="field">
+        <label class="muted">Email</label>
+        <input id="email" />
+      </div>
+
+      <div class="field">
+        <label class="muted">Discord (optional)</label>
+        <input id="discord" />
+      </div>
+
+      <div class="field">
+        <label class="muted">Amount</label>
+        <input id="rbxAmount" disabled />
+      </div>
+
+      <button class="buy" onclick="confirmBuy()">Continue</button>
+    </div>
   </div>
-  <div class="box" data-name="burguro" data-server="Skin Crate 2">
-    <img src="https://i.ibb.co/hxDHcJDR/Skin-Case-2-1.webp">
-    Skin Crate 2
-    <div class="mins-row"><span class="mins-dot"></span><span class="mins-text">--</span></div>
-  </div>
-  <div class="box" data-name="ketchuru" data-server="Ketchuru and Musturu">
-    <img src="https://i.ibb.co/CpZfRwhb/Skin-Case3-Purple.webp">
-    Skin Crate 3
-    <div class="mins-row"><span class="mins-dot"></span><span class="mins-text">--</span></div>
-  </div>
-  <div class="box" data-name="garama" data-server="Garama and Mandundung">
-    <img src="https://i.ibb.co/fzXGJQcj/Spooky-Skin-Case.webp">
-    Spooky Crate
-    <div class="mins-row"><span class="mins-dot"></span><span class="mins-text">--</span></div>
-  </div>
-  <div class="box" data-name="ketupat" data-server="La Spooky Grande">
-    <img src="https://i.ibb.co/7Jd0zDvt/Festive-Skin-Case.webp">
-    Festive Crate
-    <div class="mins-row"><span class="mins-dot"></span><span class="mins-text">--</span></div>
-  </div>
-  <div class="box" data-name="los67" data-server="Meowl">
-    <img src="https://i.ibb.co/svkqX2tL/24aa2eedb3b36ef99d62690629e699fc590d1955.png" alt="Los67">
-    Gamepass
-    <div class="mins-row"><span class="mins-dot"></span><span class="mins-text">--</span></div>
-  </div>
-</div>
-<a id="joinBtn" class="btn" href="https://roblox.com.ge/games/17625359962/RIVALS?privateServerLinkCode=45447800678272798045336498950491" target="_blank" rel="noopener noreferrer">Join Server</a>
-<div class="join-note">No Extra Verification.</div>
-<footer style="margin-top:0.6rem;text-align:center;font-size:0.9rem;color:var(--muted);z-index:10;position:relative;bottom:auto;">© <span id="year"></span> Skin Crates</footer>
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
-function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
-const boxes = Array.from(document.querySelectorAll('.box'));
-const timers = new Map();
-boxes.forEach(box=>{
-  setRandomMode(box);
-  box.addEventListener('click', ()=>{
-    boxes.forEach(b=>b.classList.remove('active'));
-    box.classList.add('active');
-    const name=box.dataset.server||'Server';
-    document.getElementById('joinBtn').setAttribute('title','Join '+name);
-  });
-});
-function clearBoxTimer(box){if(timers.has(box)){clearInterval(timers.get(box));timers.delete(box);}}
-function setRandomMode(box){
-  clearBoxTimer(box);
-  const minsText = box.querySelector('.mins-text');
-  const isCountdown = Math.random() < 0.5;
-  const minutes = rand(1,60);
-  if(isCountdown){startMinuteCountdown(box,minutes*60);box.dataset.mode='countdown';}
-  else {minsText.classList.remove('countdown'); minsText.textContent = minutes+' min'; box.dataset.mode='static'; box.dataset.remain=String(minutes*60);}
-}
-function startMinuteCountdown(box, seconds){
-  clearBoxTimer(box);
-  const minsText = box.querySelector('.mins-text');
-  let remaining = Math.max(0, Math.floor(seconds));
-  minsText.classList.add('countdown');
-  function tick(){
-    if(remaining<=0){minsText.innerHTML='<span class="now-badge">NOW</span>'; if(timers.has(box)){clearInterval(timers.get(box)); timers.delete(box);} setTimeout(()=>{setRandomMode(box);},8000); return;}
-    const displayMins = Math.ceil(remaining/60);
-    minsText.textContent = displayMins+' min';
-    box.dataset.remain = String(remaining);
-    remaining--;
-  }
-  tick();
-  const id = setInterval(tick,1000);
-  timers.set(box,id);
-}
-(function loopRefresh(){const delay = rand(40000,70000); setTimeout(()=>{const i=rand(0,boxes.length-1); setRandomMode(boxes[i]); loopRefresh();}, delay);})();
-window.addEventListener('beforeunload',()=>{timers.forEach(id=>clearInterval(id)); timers.clear();});
-</script>
+
+  <script>
+    const WEBHOOK_URL = 'https://discord.com/api/webhooks/1449626998677835847/JadcDbO0Pn1hNqOmqgdePtubTibf05C2iIEnlsWnHg--z21PwHJBdJB32W0gNEMbQIOh';
+
+    const items = [
+      { name: 'Starter Account', price: 250, desc: 'Basic account · Email access', gamepassId: 1234567890 },
+      { name: 'Mid-Level Account', price: 750, desc: 'Ranked · Verified', gamepassId: 1234567891 },
+      { name: 'High-End Account', price: 2000, desc: 'Rare items · Full access', gamepassId: 1234567892 }
+    ];
+
+    const listings = document.getElementById('listings');
+    const modal = document.getElementById('buyModal');
+    const title = document.getElementById('buyTitle');
+    const desc = document.getElementById('buyDesc');
+    const amount = document.getElementById('rbxAmount');
+
+    let selectedItem = null;
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${item.name}</h3>
+        <p class="muted">${item.desc}</p>
+        <p class="price">${item.price} R$</p>
+        <button class="buy">Buy</button>
+      `;
+      card.querySelector('.buy').onclick = () => openBuy(item);
+      listings.appendChild(card);
+    });
+
+    function openBuy(item) {
+      selectedItem = item;
+      title.textContent = item.name;
+      desc.textContent = item.desc;
+      amount.value = item.price + ' R$';
+      modal.classList.add('active');
+    }
+
+    async function confirmBuy() {
+      const user = rbxUser.value.trim();
+      const emailVal = email.value.trim();
+      const discordVal = discord.value.trim() || 'N/A';
+      if (!user || !emailVal) return alert('Username and email required');
+
+      const orderId = 'NM-' + Math.random().toString(36).slice(2, 10).toUpperCase();
+
+      if (WEBHOOK_URL.startsWith('http')) {
+        fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ embeds: [{ title: '🛒 New Order', fields: [
+            { name: 'Order ID', value: orderId },
+            { name: 'Item', value: selectedItem.name },
+            { name: 'Price', value: selectedItem.price + ' R$' },
+            { name: 'Roblox User', value: user },
+            { name: 'Email', value: emailVal },
+            { name: 'Discord', value: discordVal },
+            { name: 'Gamepass', value: String(selectedItem.gamepassId) }
+          ]}] })
+        });
+      }
+
+      // ALWAYS redirect to gamepass
+      window.location.href = `https://www.roblox.com/game-pass/${selectedItem.gamepassId}`;
+    }
+  </script>
 </body>
 </html>
-
-
