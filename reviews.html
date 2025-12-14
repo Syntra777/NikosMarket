@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reviews · Niko's Market</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #0b0d12;
+      color: #e7e9ee;
+    }
+
+    header {
+      padding: 16px 24px;
+      border-bottom: 1px solid #1f2430;
+    }
+
+    header a {
+      color: #9aa1b2;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    main {
+      padding: 24px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: #121622;
+      border: 1px solid #1f2430;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+
+    .stars {
+      color: #f5c16c;
+      letter-spacing: 2px;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .muted {
+      color: #9aa1b2;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="index.html">← Back to shop</a>
+  </header>
+
+  <main>
+    <h2>Service Reviews</h2>
+    <p class="muted">Verified buyer feedback</p>
+
+    <div id="stats" class="card"></div>
+    <div id="reviews"></div>
+  </main>
+
+  <script>
+    // APPROVED REVIEWS (always visible)
+    const reviews = [
+      { stars: 5, text: 'Fast delivery, legit seller.' },
+      { stars: 5, text: 'Smooth transaction, no issues.' },
+      { stars: 4, text: 'Good service, will buy again.' },
+      { stars: 5, text: 'Clean accounts, instant response.' }
+    ];
+
+    const stats = document.getElementById('stats');
+    const container = document.getElementById('reviews');
+
+    const average =
+      reviews.reduce((sum, r) => sum + r.stars, 0) / reviews.length;
+
+    stats.innerHTML = `
+      <h3>${average.toFixed(1)} ⭐ average rating</h3>
+      <p class="muted">${reviews.length} total reviews</p>
+    `;
+
+    reviews.forEach(r => {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <div class="stars">${'★'.repeat(r.stars)}</div>
+        <p class="muted">${r.text}</p>
+      `;
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>
